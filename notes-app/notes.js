@@ -35,6 +35,20 @@ const removeNote = (title) => {
 
 }
 
+//List Notes Handler
+const listNotes = () => {
+    const notes = loadNotes();
+    if(notes.length!==0) {
+        console.log(chalk.bold.inverse.blue("Your Notes"));
+        notes.forEach((note) => {
+            console.log(note.title);
+        })
+    } else {
+        console.log(chalk.bold.inverse.yellow("You do not have any notes!"));
+    }
+    
+}
+
 //save note utility function
 const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes);
@@ -55,4 +69,5 @@ module.exports = {
     getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
+    listNotes: listNotes,
 };
