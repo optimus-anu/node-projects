@@ -19,20 +19,20 @@ app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'weather app',
+        title: 'Weather app',
         name: 'Anurag Singh'
     });
 });
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'About me',
-        name: 'Andrew'
+        title: 'About Me',
+        name: 'Anurag Singh'
     });
 });
 app.get('/help', (req, res) => {
     res.render('help', {
         message: 'This is the section to get you help',
-        title: 'This help page',
+        title: 'This is Help Page',
         name: 'Anurag Singh'
     });
 });
