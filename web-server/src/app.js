@@ -59,7 +59,6 @@ app.get('/weather', (req, res) => {
                         error: error,
                     });
                 } else {
-                    console.log(`${location}. It is currently ${body.current.temperature} degrees out. It feels like ${body.current.feelslike} degrees out`);
                     res.send({
                         location: location,
                         currentTemperature: body.current.temperature,

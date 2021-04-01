@@ -3,7 +3,6 @@
     <head>
         <link rel='stylesheet' href='/css/style.css'/>
         <link rel="icon" href="/img/weather.png">
-        <script src='/js/app.js'></script>
         <title>Home Page</title>
     </head>
     
@@ -11,9 +10,17 @@
         <div class='main-content'>
             {{>header}}
             <h3>You are currently on the homepage</h3>
+
+            <form action="">
+                <input placeholder="Location">
+                <button>Search</button>
+            </form>
         </div>
 
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+        <p></p>
         {{>footer}}
-        
+        <script src='/js/app.js'></script>
     </body>
 </html>
