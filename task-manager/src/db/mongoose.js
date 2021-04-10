@@ -1,46 +1,66 @@
 const mongoose = require('mongoose');
+const validator = require('validator')
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
     useNewUrlParser: true,
     useCreateIndex: true
 })
 
-// const User = mongoose.model('User', {
-//     name: {
-//        type: String 
-//     },
-//     age: {
-//         type: Number
-//     }
-// })
-
-// const me = new User({
-//     name: 'Andrew',
-//     age: 27
-// })
-
-// me.save().then(result => {
-//     console.log(result)
-// }).catch(error => {
-//     console.log(error)
-// })
-const Task = mongoose.model('Task', {
-    description: {
-        type: String
+const User = mongoose.model('User', {
+    name: {
+       type: String,
+       required: true,
+       trim: true,
     },
-    completed: {
-        type: Boolean
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true,
+        validate(value) {
+            if(!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
+    },
+    age: {
+        type: Number,
+        default: 0,
+        validate(value) {
+            if(value < 0) {
+                throw new Error('Age must be a positive number');
+            }
+        }
     }
 })
 
-const houseCleaning = new Task({
-    description: "Clean the house",
-    completed: true
+const me = new User({
+    name: '   Andrew  ',
+    email: 'MYEMAIL@MEad.io'
 })
 
-houseCleaning.save().then(result => {
+me.save().then(result => {
     console.log(result)
 }).catch(error => {
     console.log(error)
 })
+// const Task = mongoose.model('Task', {
+//     description: {
+//         type: String
+//     },
+//     completed: {
+//         type: Boolean
+//     }
+// })
+
+// const houseCleaning = new Task({
+//     description: "Clean the house",
+//     completed: true
+// })
+
+// houseCleaning.save().then(result => {
+//     console.log(result)
+// }).catch(error => {
+//     console.log(error)
+// })
 
