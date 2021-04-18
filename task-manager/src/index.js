@@ -2,6 +2,7 @@ const express = require('express')
 require('./db/mongoose')
 const User = require('./models/user')
 const Task = require('./models/task')
+const { findByIdAndUpdate } = require('./models/user')
 const app = express()
 
 const port = process.env.PORT || 3000
@@ -92,6 +93,26 @@ app.get('/tasks/:id', async (req, res) => {
         res.send(task)
     } catch(e) {
         res.status(500).send(e)
+    }
+})
+
+app.patch('/tasks/:id', async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['description', 'completed']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if(!isValidOperation) {
+        return res.status(400).send({error: 'Invalid updates'})
+    }
+
+    try {
+        const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
+        if(!task) {
+            return res.status(404).send({error: 'Can not find the task'})
+        }
+        res.send(task)
+    } catch(e) {
+        res.status(400).send(e)
     }
 })
 
