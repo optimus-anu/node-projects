@@ -16,15 +16,3 @@ app.use(taskRouter)
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
-
-
-const main = async () => {
-    // const task = await Task.findById('6081534a606a441de857c374')
-    // await task.populate('owner').execPopulate()
-    // console.log(task.owner)
-    const user = await User.findById('6081524538ee1b1e7ca34318')
-    await user.populate('tasks').execPopulate()
-    console.log(user.tasks)
-    
-}
-main()
